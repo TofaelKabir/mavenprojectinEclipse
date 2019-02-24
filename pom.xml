@@ -49,11 +49,6 @@
 </dependency>
 <dependency>
     <groupId>org.apache.poi</groupId>
-    <artifactId>poi-ooxml-schemas</artifactId>
-    <version>4.0.1</version>
-</dependency>
-<dependency>
-    <groupId>org.apache.poi</groupId>
     <artifactId>ooxml-schemas</artifactId>
     <version>1.4</version>
 </dependency>
@@ -62,24 +57,5 @@
     <artifactId>openxml4j</artifactId>
     <version>1.0-beta</version>
 </dependency>
-
-
-
-
-
-		
-		<dependency>
-			<groupId>com.relevantcodes</groupId>
-			<artifactId>extentreports</artifactId>
-			<version>2.41.2</version>
-		</dependency>
-
-		
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.6</version>
-		</dependency>    
-    
   </dependencies>
 </project>

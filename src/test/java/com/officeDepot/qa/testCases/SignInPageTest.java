@@ -1,5 +1,11 @@
 package com.officeDepot.qa.testCases;
 
+
+
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeMethod;
+import org.testng.AssertJUnit;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -8,37 +14,60 @@ import org.testng.annotations.Test;
 import com.officeDepot.qa.base.TestBase;
 import com.officeDepot.qa.pages.HomePage;
 import com.officeDepot.qa.pages.SignInPage;
+import com.officeDepot.qa.util.TestUtil;
 
 public class SignInPageTest extends TestBase {
 	
 	SignInPage signInPage;
 	HomePage homePage;
+	TestUtil testUtil;
 	
 	public SignInPageTest() {
 		super();
 	}
 	@BeforeMethod
-	public void setUp() {
+	
+	public void setUp() throws InterruptedException{
 		initialization();
-		signInPage = new SignInPage();
+		String ParentWindowHandler = driver.getWindowHandle();
+		driver.switchTo().window(ParentWindowHandler);
+		testUtil = new TestUtil();
+		homePage = new HomePage();
+		homePage = signInPage.signIn(prop.getProperty("emailAddress"), prop.getProperty("password"));
+		
 	}
 	@Test(priority=1)
-	public void signInPageTitleTest() {
-		String title = signInPage.validateSignInPageTitle();
-	    Assert.assertEquals(title, "Log In to access your account information");
+	public void verifySignInPageTitleTest() {
+		String signInPageTitle = signInPage.validateSignInPageTitle();
+	    AssertJUnit.assertEquals(signInPageTitle, "Office Depot & OfficeMax", "SignIn Page Title doesn't match");
 	}
 	@Test(priority=2)
-	public void officeDepotLogoTest() {
-		boolean flag = signInPage.validateOfficeDepotLogo();
-        Assert.assertTrue(flag);	
-	}
-	@Test(priority=3)
-	public void signInPage() {
-		homePage = signInPage.signIn(prop.getProperty("username"), prop.getProperty("password"));
+	public void verifyUserNameTest(){
+		testUtil.switchToFrame();
+		AssertJUnit.assertTrue(signInPage.verifyCorrectUserName());
 	}
 	@AfterMethod
+	
 	public void tearDown() {
 		driver.close();
 	}
+	
+	
+
+	
+
+	//test cases should be separated -- independent with each other
+	//before each test case -- launch the browser
+	//@test -- execute test case
+	//after each test case -- close the browser
+	
+	
+	
+	
+	
+	
+	
+	
+
 	
 }
